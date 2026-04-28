@@ -28,7 +28,7 @@ def editTask():
         print("Task updated.")
     else:
         print("Invalid task number.")
-        
+
 def listTasks():
     if not tasks:
         print("No tasks here!")  
@@ -38,6 +38,19 @@ def listTasks():
             status = "Completed" if task["completed"] else "Pending"
             print(f"Task #{index}. {task['task']} (Urgent: {task['urgency']}, Important: {task['importance']}, "
                   f"Category: {task['category']}, Status: {status})")
+            
+def viewCompletedTasks():
+    print("Completed Tasks:")
+
+    found = False
+
+    for task in tasks:
+        if task["completed"] == True:
+            print("-", task["task"])
+            found = True
+
+    if found == False:
+        print("No completed tasks.")
 
 def eisenhowerSort():
     if not tasks:
