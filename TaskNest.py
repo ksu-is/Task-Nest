@@ -59,6 +59,8 @@ def clearAllTasks():
     tasks.clear()
     print("All tasks cleared.")
 
+tag = input("Enter tag (school/work/personal): ")
+
 def eisenhowerSort():
     if not tasks:
         print("No tasks to sort.")
