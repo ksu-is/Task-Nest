@@ -16,6 +16,19 @@ def addTask():
     })
     print(f"Task '{task}' added with urgency '{urgency}' and importance '{importance}'.")
 
+
+def editTask():
+    listTasks()
+
+    index = int(input("Enter task number to edit: "))
+
+    if index >= 0 and index < len(tasks):
+        newName = input("Enter new task name: ")
+        tasks[index]["task"] = newName
+        print("Task updated.")
+    else:
+        print("Invalid task number.")
+        
 def listTasks():
     if not tasks:
         print("No tasks here!")  
