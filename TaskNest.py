@@ -52,6 +52,9 @@ def viewCompletedTasks():
     if found == False:
         print("No completed tasks.")
 
+print("Total tasks:", len(tasks))
+print("Completed tasks:", sum(1 for task in tasks if task["completed"]))
+
 def eisenhowerSort():
     if not tasks:
         print("No tasks to sort.")
