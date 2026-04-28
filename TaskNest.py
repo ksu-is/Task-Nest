@@ -1,4 +1,3 @@
-
 # Sample task list for demonstration
 tasks = []
 
@@ -7,14 +6,17 @@ def addTask():
     urgency = input("Is this task urgent? (yes/no): ").lower()
     importance = input("Is this task important? (yes/no): ").lower()
     category = input("Please enter a category for the task: ")
+    priority = input("Enter priority (High/Medium/Low): ").lower()
+
     tasks.append({
-        "task": task,
-        "urgency": urgency == "yes",
-        "importance": importance == "yes",
-        "category": category,
-        "completed": False
-    })
-    print(f"Task '{task}' added with urgency '{urgency}' and importance '{importance}'.")
+    "task": task,
+    "urgency": urgency == "yes",
+    "importance": importance == "yes",
+    "category": category,
+    "priority": priority,
+    "completed": False
+})
+    print(f"Task '{task}' added with urgency '{urgency}', importance '{importance}', and priority '{priority}'.")
 
 
 def editTask():
@@ -29,16 +31,22 @@ def editTask():
     else:
         print("Invalid task number.")
 
+
 def listTasks():
     if not tasks:
-        print("No tasks here!")  
+        print("No tasks here!")
     else:
-        print("Current tasks:")    
+        print("Current tasks:")
+
         for index, task in enumerate(tasks):
             status = "Completed" if task["completed"] else "Pending"
             print(f"Task #{index}. {task['task']} (Urgent: {task['urgency']}, Important: {task['importance']}, "
                   f"Category: {task['category']}, Status: {status})")
-            
+
+        print("Total tasks:", len(tasks))
+        print("Completed tasks:", sum(1 for task in tasks if task["completed"]))
+
+
 def viewCompletedTasks():
     print("Completed Tasks:")
 
@@ -52,14 +60,11 @@ def viewCompletedTasks():
     if found == False:
         print("No completed tasks.")
 
-print("Total tasks:", len(tasks))
-print("Completed tasks:", sum(1 for task in tasks if task["completed"]))
 
 def clearAllTasks():
     tasks.clear()
     print("All tasks cleared.")
 
-tag = input("Enter tag (school/work/personal): ")
 
 def eisenhowerSort():
     if not tasks:
@@ -92,34 +97,39 @@ def eisenhowerSort():
         else:
             print("No tasks in this category.")
 
+
 def markMultipleTasksCompleted():
     listTasks()
-    try:
-        num_to_complete = int(input("How many tasks do you want to mark as completed? "))
-        for _ in range(num_to_complete):
-            taskToComplete = int(input("Enter the number of the task to mark as completed: "))
-            if 0 <= taskToComplete < len(tasks):
-                tasks[taskToComplete]["completed"] = True
-                print(f"Task #{taskToComplete} marked as completed.")
-            else:
-                print(f"Task #{taskToComplete} was not found.")
-    except ValueError:
-        print("Invalid input. Please enter a number.")
+
+    num_to_complete = int(input("How many tasks do you want to mark as completed? "))
+
+    for _ in range(num_to_complete):
+        taskToComplete = int(input("Enter the number of the task to mark as completed: "))
+
+        if 0 <= taskToComplete < len(tasks):
+            tasks[taskToComplete]["completed"] = True
+            print(f"Task #{taskToComplete} marked as completed.")
+        else:
+            print(f"Task #{taskToComplete} was not found.")
+
 
 if __name__ == "__main__":
     print("Welcome to the Only Planner!")
     print("This tool helps organize your tasks based on urgency and importance.")
+
     while True:
-        print("\n")
-        print("Please select one of the following options:")
+        print("\nPlease select one of the following options:")
         print("1. Add a new task")
         print("2. List current tasks")
         print("3. View tasks by Eisenhower Matrix")
         print("4. Mark tasks as completed")
-        print("5. Quit")
+        print("5. Edit a task")
+        print("6. View completed tasks")
+        print("7. Clear all tasks")
+        print("8. Quit")
 
         choice = input("Enter your choice: ")
-        
+
         if choice == "1":
             addTask()
         elif choice == "2":
@@ -129,8 +139,14 @@ if __name__ == "__main__":
         elif choice == "4":
             markMultipleTasksCompleted()
         elif choice == "5":
+            editTask()
+        elif choice == "6":
+            viewCompletedTasks()
+        elif choice == "7":
+            clearAllTasks()
+        elif choice == "8":
             break
         else:
             print("Invalid input. Please try again.")
 
-    print("Have a great day! )")
+    print("Have a great day! :)")
